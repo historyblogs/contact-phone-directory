@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { AiFillPlusCircle } from 'react-icons/ai';
 
 const Header = () => {
   return (
@@ -11,8 +12,8 @@ const Header = () => {
         </Link>
         <Link href='/add-contact'>
           <ul>
-            <li className='bg-blue-600 text-gray-50 py-0.5 px-1 tracking-wide whitespace-nowrap'>
-              Add Contact
+            <li className='text-blue-600 text-[40px]'>
+            <AiFillPlusCircle />
             </li>
           </ul>
         </Link>
