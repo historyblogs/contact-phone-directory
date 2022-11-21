@@ -1,7 +1,9 @@
+/* eslint-disable @next/next/no-sync-scripts */
 import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-
+import Head from "next/head";
+import Footer from "../components/Footer";
 
 const AddContact = () => {
   const router = useRouter();
@@ -10,31 +12,28 @@ const AddContact = () => {
   const [phoneNumber, setPhoneNumber] = useState();
   const [location, setLocation] = useState("");
   const [email, setEmail] = useState("");
-  // const [dateAdded, setDateAdded] = useState();
-  const [imageSrc, setImageSrc] = useState();
+  const [imageUrl, setImageUrl] = useState("");
 
-  async function submit(e){
-    e.preventDefault();
-    let response;
-    if (imageSrc) {
-      const body = new FormData();
-      body.append('upload_preset', 'ufa6exrd');
-
-      body.append('file', imageSrc);
-
-      response = await fetch(
-        'https://api.cloudinary.com/v1_1/fatimaola/image/upload',
-        {
-          method: 'POST',
-          body,
+  const openupWidget = () => {
+    window.cloudinary
+      .openUploadWidget(
+        { cloud_name: "fatimaola", upload_preset: "ufa6exrd" },
+        (error, result) => {
+          if (!error && result && result.event === "success") {
+            setImageUrl(result.info.url);
+            console.log("Done uploading..: ", result.info);
+          }
         }
-      ).then((r) => r.json());
-    }
+      )
+      .open();
+  };
 
-    fetch('/api/add-contact', {
-      method: 'POST',
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    fetch("/api/add-contact", {
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
         firstName,
@@ -42,21 +41,22 @@ const AddContact = () => {
         phoneNumber,
         location,
         email,
-        image_url: response.secure_url,
+        date,
+        imageUrl: imageUrl,
       }),
-    }).then(() => 
-    router.push('/'));
-  }
+    }).then(() => router.push("/"));
+  };
 
-  console.log("data", firstName, lastName, phoneNumber, location, email)
-  // const handleSubmit = (e)=>{
-  //   e.preventDefault();
-  //   submit();
-  // }
 
-  
+
   return (
     <>
+      <Head>
+        <script
+          src='https://upload-widget.cloudinary.com/global/all.js'
+          type='text/javascript'
+        />
+      </Head>
       <header className='border-b border-gray-100'>
         <div className='max-w-7xl mx-auto w-4/5 my-5'>
           <div className='flex items-center justify-between'>
@@ -70,7 +70,7 @@ const AddContact = () => {
       </header>
       <section className='mx-auto w-[50%]'>
         <form>
-          <p className="mt-[30px] mb-[30px] font-medium">Add New Contact</p>
+          <p className='mt-[30px] mb-[30px] font-medium'>Add New Contact</p>
           <div className='mb-5'>
             <label htmlFor='firstName' className='block'>
               First Name
@@ -79,6 +79,7 @@ const AddContact = () => {
               type='text'
               name='firstName'
               onChange={(e) => setFirstName(e.target.value)}
+              required
               className='border-2 p-1 w-full mt-1'
             />
           </div>
@@ -90,6 +91,7 @@ const AddContact = () => {
               type='text'
               name='lastName'
               id='lastName'
+              required
               onChange={(e) => setLastName(e.target.value)}
               className='border-2 p-1 w-full mt-1'
             />
@@ -99,9 +101,10 @@ const AddContact = () => {
               Phone Number
             </label>
             <input
-              type='tel'
+              type='text'
               name='phoneNumber'
               id='phoneNumber'
+              required
               onChange={(e) => setPhoneNumber(e.target.value)}
               className='border-2 p-1 w-full mt-1'
             />
@@ -114,6 +117,7 @@ const AddContact = () => {
               type='text'
               name='location'
               id='location'
+              required
               onChange={(e) => setLocation(e.target.value)}
               className='border-2 p-1 w-full mt-1'
             />
@@ -127,41 +131,35 @@ const AddContact = () => {
               type='email'
               name='email'
               id='email'
+              required
               onChange={(e) => setEmail(e.target.value)}
               className='border-2 p-1 w-full mt-1'
             />
           </div>
-          {/* <div className='mb-8'>
-            <label htmlFor='date' className='block'>
-              Date Created
-            </label>
-            <input
-              type='datetime-local'
-              name='dateAdded'
-              id='dateAdded'
-              onChange={(e) => setDateAdded(e.target.value)}
-              className='border-2 p-1 w-full mt-1'
-            />
-          </div> */}
-          <div className='mb-8'>
-            <label htmlFor='image' className='block'>
-              Add Image
-            </label>
-            <input
-              type='file'
-              name='image'
-              onChange={(e) => setImageSrc(e.target.files[0])}
-            />
-          </div>      
+          <div className='mb-5'>
+            <button
+              className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+              type='button'
+              onClick={openupWidget}
+            >
+              Upload files
+            </button>
+          </div>
+          <div className="flex justify-end">
           <button
-           onClick={submit}
             type='submit'
-            className='bg-blue-600 text-gray-50 py-2 px-6 tracking-wide whitespace-nowrap flex-shrink-0 float-right mb-10'
+            onClick={handleSubmit}
+            className='bg-blue-600 text-gray-50 py-2 px-6 tracking-wide whitespace-nowrap  mb-10'
           >
             Submit
           </button>
+          </div>
+          
         </form>
       </section>
+        <div className='border-t border-gray-100'>
+        <Footer />
+      </div>
     </>
   );
 };

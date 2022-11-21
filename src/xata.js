@@ -8,9 +8,10 @@ const tables = [
     columns: [
       { name: "firstName", type: "string" },
       { name: "lastName", type: "string" },
-      { name: "phoneNumber", type: "int" },
+      { name: "phoneNumber", type: "string" },
       { name: "location", type: "string" },
-      { name: "email", type: "email" },
+      { name: "email", type: "string" },
+      { name: "imageUrl", type: "string" },
     ],
   },
 ];

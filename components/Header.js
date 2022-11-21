@@ -10,7 +10,7 @@ const Header = () => {
             All Contacts
           </span>
         </Link>
-        <Link href='/add-contact'>
+        <Link href='/add-new-contact'>
           <ul>
             <li className='text-blue-600 text-[40px]'>
             <AiFillPlusCircle />
