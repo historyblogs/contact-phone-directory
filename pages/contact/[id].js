@@ -11,7 +11,7 @@ const Contact = ({ data }) => {
   const router = useRouter();
 
   const deleteContact = (id) => {
-    fetch("/api/delete-product", {
+    fetch("/api/delete-contact", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -47,13 +47,6 @@ const Contact = ({ data }) => {
             alt=''
           />
           )}
-          {/* <Image
-            width={80}
-            height={20}
-            className='h-20 w-30 rounded-full'
-            src={data.imageUrl}
-            alt=''
-          /> */}
         </div>
         <div className='text-center font-semibold'>
           <p>{`${data.firstName} ${data.lastName}`}</p>
