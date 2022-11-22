@@ -1,9 +1,33 @@
 import Head from "next/head";
+import { useState } from "react";
 import LandingPage from "../components/LandingPage";
 import { getXataClient } from "../src/xata";
-import ContactList from "../components/ContactList/ContactList";
+import SearchList from "../components/SearchList/SearchList";
+import AllContactsList from "../components/AllContactsLists/AllContactsLists";
 
 export default function Home({ phoneBooks }) {
+  const [searchWord, setSearchWord] = useState();
+  const [searchContacts, setSearchContacts] = useState();
+
+  const handleSearch = (e) => {
+    e.preventDefault();
+    console.log("here");
+    const result = () => {
+      fetch("/api/search", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          searchWord,
+        }),
+      }).then((r) => r.json());
+      console.log("resultss", result);
+      setSearchContacts(result?.firstName);
+      console.log("searchcontacts",searchContacts)
+    };
+  };
+  console.log("phonebooks", phoneBooks);
   return (
     <div>
       <Head>
@@ -18,10 +42,18 @@ export default function Home({ phoneBooks }) {
             placeholder='Search for contact...'
             type='text'
             name='search'
-            // onChange={(e) => setSearchTerm(e.target.value)}
+            onChange={(e) => setSearchWord(e.target.value)}
           />
+          <button
+            className='bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded'
+            type='submit'
+            onClick={handleSearch}
+          >
+            Search
+          </button>
         </div>
-        <ContactList allContacts={phoneBooks} />
+        {searchContacts ? <SearchList allContacts={searchContacts}/> : ""}
+        {searchContacts ? ""  : <AllContactsList allContacts={phoneBooks}/>}
       </LandingPage>
     </div>
   );
@@ -30,7 +62,7 @@ export default function Home({ phoneBooks }) {
 export async function getServerSideProps() {
   const xata = getXataClient();
   const phoneBooks = await xata.db.contacts.getAll();
-  console.log(phoneBooks);
+  console.log("phonebooks", phoneBooks);
 
   return { props: { phoneBooks } };
 }
