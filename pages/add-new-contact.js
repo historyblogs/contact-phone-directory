@@ -21,7 +21,6 @@ const AddContact = () => {
         (error, result) => {
           if (!error && result && result.event === "success") {
             setImageUrl(result.info.url);
-            console.log("Done uploading..: ", result.info);
           }
         }
       )

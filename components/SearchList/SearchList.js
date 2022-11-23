@@ -6,12 +6,24 @@ export default function SearchList({ allContacts }) {
     return character.charAt(0).toUpperCase();
   }
 
+  let contactInfo = [];
+  allContacts.forEach((data) => {
+    return contactInfo.push({
+      id: data.record.id,
+      email: data.record.email,
+      imageUrl: data.record.imageUrl,
+      firstName: data.record.firstName,
+      lastName: data.record.lastName,
+      location: data.record.location,
+      phoneNumber: data.record.phoneNumber,
+    });
+  });
+ 
   return (
     <div>
-      {console.log("searchList")}
-      {allContacts ? (
+      {contactInfo.length > 0 ? (
         <div>
-          {allContacts?.map(({ firstName, phoneNumber, id, imageUrl }) => (
+          {contactInfo?.map(({ firstName, phoneNumber, id, imageUrl }) => (
             <div key={id}>
               <Link href={{ pathname: `contact/${id}` }}>
                 <ul role='list' className='p-6 divide-y divide-slate-200'>
@@ -44,8 +56,8 @@ export default function SearchList({ allContacts }) {
           ))}
         </div>
       ) : (
-        <div className='flex items-center justify-center font-bold text-2xl'>
-          <p>No data in the database</p>
+        <div className='text-center'>
+          <p className='text-center'>Contact Not found</p>
         </div>
       )}
     </div>

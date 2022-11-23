@@ -8,7 +8,6 @@ export default function AllContactsList({ allContacts }) {
 
   return (
     <div>
-         {console.log("allcontactsLists")}
       {allContacts ? (
         <div>
           {allContacts?.map(({ firstName, phoneNumber, id, imageUrl }) => (
