@@ -40,7 +40,6 @@ const AddContact = () => {
         phoneNumber,
         location,
         email,
-        date,
         imageUrl: imageUrl,
       }),
     }).then(() => router.push("/"));
