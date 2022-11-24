@@ -32,7 +32,7 @@ const Contact = ({ data }) => {
       <div className='border-b border-gray-100 mb-6'>
         <Header />
       </div>
-      <section className='mx-auto w-[30%] p-8 shadow-sm border-2 hover:shadow-lg rounded-lg'>
+      <section className='mx-auto w-[30%] sm:w-[50%] xs:w-[60%] p-8 shadow-sm border-2 hover:shadow-lg rounded-lg'>
         <div className='flex justify-center'>
           {data.imageUrl === "" ? (
             <p className='self-center bg-pink-200 font-bold py-2 px-4 mr-2 rounded-full'>
@@ -75,7 +75,7 @@ const Contact = ({ data }) => {
           </div>
           <div className='my-3'>
             <p className='font-semibold'>Email:</p>
-            <p>{data.email}</p>
+            <p className="">{data.email}</p>
           </div>
         </div>
         <div className='flex justify-center my-6'>
