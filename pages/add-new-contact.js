@@ -141,7 +141,7 @@ const AddContact = () => {
               type='button'
               onClick={openupWidget}
             >
-              Upload files
+              Upload Image
             </button>
           </div>
           <div className="flex justify-end">
