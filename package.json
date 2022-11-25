@@ -10,7 +10,6 @@
   },
   "dependencies": {
     "@cloudinary/url-gen": "^1.8.6",
- 
     "@xata.io/client": "^0.20.2",
     "eslint": "8.27.0",
     "eslint-config-next": "13.0.2",

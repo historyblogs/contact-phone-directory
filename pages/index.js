@@ -24,11 +24,6 @@ export default function Home({ phoneBooks }) {
     setSearchContacts(result);
   };
 
-  const handleClick = (e) => {
-    e.preventDefault();
-    setIsShow(true);
-  };
-
   return (
     <div>
       <Head>
