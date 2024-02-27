@@ -1,7 +1,3 @@
 {
-  "databaseURL": "https://Fatima-Olasunkanmi-ojo-s-workspace-j5n8v5.us-east-1.xata.sh/db/contact-phone-directory",
-  "codegen": {
-    "output": "src/xata.js",
-    "moduleType": "esm"
-  }
+  "databaseURL": "https://historyblogs-s-workspace-imj7l6.us-west-2.xata.sh/db/contact-phone-directory"
 }

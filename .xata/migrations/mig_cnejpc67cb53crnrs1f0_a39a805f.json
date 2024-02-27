@@ -1,0 +1,16 @@
+{
+  "id": "mig_cnejpc67cb53crnrs1f0",
+  "parentID": "mig_cnejn9e7cb53crnrs1d0",
+  "checksum": "1:a39a805fa62fd9c90b622090ed7a29a0fcc825642b0fae72553f5800f3aa3559",
+  "operations": [
+    {
+      "addColumn": {
+        "column": {
+          "name": "location",
+          "type": "string"
+        },
+        "table": "contacts"
+      }
+    }
+  ]
+}
